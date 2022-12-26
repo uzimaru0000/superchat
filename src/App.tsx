@@ -93,7 +93,7 @@ const Form: FC<{
   });
   const { handleSubmit, register, watch } = methods;
   const onChange = useMemo(() => {
-    return debounce(handleSubmit(onSubmit), 100);
+    return debounce(handleSubmit(onSubmit), 1000);
   }, []);
 
   return (
