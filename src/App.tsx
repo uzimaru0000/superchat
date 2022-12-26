@@ -25,11 +25,14 @@ function App() {
     return 'share' in navigator;
   }, []);
   const onShare = useCallback(async () => {
+    const res = await fetch(createURL(props));
+    const blob = await res.blob();
+
     if (canShare) {
-      navigator.share({});
+      await navigator.share({
+        files: [new File([blob], 'superChat.png')],
+      });
     } else {
-      const res = await fetch(createURL(props));
-      const blob = await res.blob();
       const url = URL.createObjectURL(blob);
 
       const download = document.createElement('a');
