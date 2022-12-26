@@ -7,17 +7,6 @@ export type Props = {
   message?: string;
 };
 
-export const createURL = (props: Props) => {
-  const url = new URL(END_POINT);
-  Object.entries(props).forEach(([k, v]) => {
-    if (v) {
-      url.searchParams.set(k, v.toString());
-    }
-  });
-
-  return url.href;
-};
-
 export const createImage = async (props: Props) => {
   const form = new FormData();
   props.name ? form.set('name', props.name) : form.set('name', 'Anonymous');
@@ -38,5 +27,5 @@ export const createImage = async (props: Props) => {
   }
 
   const blob = await res.blob();
-  return URL.createObjectURL(blob);
+  return blob;
 };

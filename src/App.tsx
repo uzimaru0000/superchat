@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import React, { FC, useCallback, useEffect, useMemo, useState } from 'react';
-import { createImage, createURL, Props } from './lib/image';
+import { createImage, Props } from './lib/image';
 import { FormProvider, useForm, useFormContext } from 'react-hook-form';
 import { debounce, throttle } from 'lodash-es';
 
@@ -24,21 +24,29 @@ function App() {
   const canShare = useMemo(() => {
     return 'share' in navigator;
   }, []);
+  const [shareLoadingState, setShareLoadingState] = useState(false);
   const onShare = useCallback(async () => {
-    const res = await fetch(createURL(props));
-    const blob = await res.blob();
+    setShareLoadingState(true);
 
-    if (canShare) {
-      await navigator.share({
-        files: [new File([blob], 'superChat.png')],
-      });
-    } else {
-      const url = URL.createObjectURL(blob);
+    try {
+      const blob = await createImage(props);
 
-      const download = document.createElement('a');
-      download.href = url;
-      download.download = 'superChat.png';
-      download.click();
+      if (canShare) {
+        await navigator.share({
+          files: [new File([blob], 'superChat.png')],
+        });
+      } else {
+        const url = URL.createObjectURL(blob);
+
+        const download = document.createElement('a');
+        download.href = url;
+        download.download = 'superChat.png';
+        download.click();
+      }
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setShareLoadingState(false);
     }
   }, [canShare, props]);
 
@@ -73,7 +81,14 @@ function App() {
           <SuperChatImage imgProps={props} />
           <Form defaultValues={props} onSubmit={setProps} />
           <button
-            className={clsx('w-full', 'py-2', 'bg-blue-500', 'text-black')}
+            className={clsx(
+              'w-full',
+              'py-2',
+              'bg-blue-500',
+              'text-black',
+              'disabled:bg-blue-300'
+            )}
+            disabled={shareLoadingState}
             onClick={onShare}
           >
             {canShare ? 'SNSでシェア' : '画像を保存'}
@@ -277,7 +292,7 @@ const SuperChatImage: FC<{ imgProps: Props }> = ({ imgProps }) => {
   useEffect(() => {
     setIsLoaded((x) => x.set(imgProps, false));
     createImage(imgProps).then((url) => {
-      setImageUrl(url);
+      setImageUrl(URL.createObjectURL(url));
       setIsLoaded((x) => x.set(imgProps, true));
     });
   }, [imgProps]);
