@@ -33,7 +33,11 @@ function App() {
 
       if (canShare) {
         await navigator.share({
-          files: [new File([blob], 'superChat.png')],
+          files: [
+            new File([blob], 'superChat.png', {
+              type: 'image/png',
+            }),
+          ],
         });
       } else {
         const url = URL.createObjectURL(blob);
@@ -86,7 +90,7 @@ function App() {
               'py-2',
               'bg-blue-500',
               'text-black',
-              'disabled:bg-blue-300'
+              'disabled:opacity-50'
             )}
             disabled={shareLoadingState}
             onClick={onShare}
