@@ -1,3 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+html {
+  @apply h-full;
+  font-family: 'Noto Sans JP';
+}
+
+body {
+  @apply bg-gray-200 dark:bg-gray-900 md:bg-gray-400 md:dark:bg-gray-700 text-gray-900 dark:text-white h-full;
+}
+
+#root {
+  @apply h-full;
+}
+
+input {
+  @apply bg-transparent;
+}
