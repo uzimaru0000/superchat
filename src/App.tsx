@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import React, { FC, useCallback, useEffect, useMemo, useState } from 'react';
 import { createImage, Props } from './lib/image';
 import { FormProvider, useForm, useFormContext } from 'react-hook-form';
-import { debounce, throttle } from 'lodash-es';
+import { debounce } from 'lodash-es';
 
 const useParams = () => {
   return useMemo(() => {
@@ -33,6 +33,7 @@ function App() {
 
       if (canShare) {
         await navigator.share({
+          url: 'https://superchat.uzimaru.com',
           files: [
             new File([blob], 'superChat.png', {
               type: 'image/png',
@@ -58,6 +59,8 @@ function App() {
     <div
       className={clsx(
         'flex',
+        'flex-col',
+        'space-y-10',
         'h-full',
         'pt-10',
         'md:pt-0',
@@ -69,7 +72,7 @@ function App() {
         className={clsx(
           'w-full',
           'md:max-w-[337px]',
-          'box-content',
+          'md:box-content',
           'mx-auto',
           'px-5',
           'md:py-10',
@@ -80,7 +83,7 @@ function App() {
           'dark:bg-gray-900'
         )}
       >
-        <div className={clsx('flex', 'flex-col', 'items-center', 'space-y-4')}>
+        <div className={clsx('flex', 'flex-col', 'items-center', 'space-y-8')}>
           <h1 className={clsx('text-4xl')}>Super Chat Maker</h1>
           <SuperChatImage imgProps={props} />
           <Form defaultValues={props} onSubmit={setProps} />
@@ -98,6 +101,25 @@ function App() {
             {canShare ? 'SNSでシェア' : '画像を保存'}
           </button>
         </div>
+      </div>
+      <div
+        className={clsx(
+          'w-full',
+          'md:max-w-lg',
+          'md:box-content',
+          'mx-auto',
+          'px-5',
+          'text-sm'
+        )}
+      >
+        <p>
+          このサイトは、YouTube の SuperChat
+          のような画像を作成するためのものです。
+        </p>
+        <p>実際の SuperChat とは関係ありません。</p>
+        <p>
+          また、当サイトのご利用によって生じたいかなるトラブル、損失、損害についても、情報提供者は一切の責任を負いません。
+        </p>
       </div>
     </div>
   );
@@ -240,7 +262,7 @@ const PriceRangeForm: FC = () => {
         'w-full',
         'flex',
         'flex-col',
-        'space-y-1',
+        'space-y-4',
         'items-center',
         'py-2'
       )}
