@@ -52,9 +52,11 @@ function App() {
     >
       <div
         className={clsx(
+          'w-full',
           'md:max-w-[337px]',
           'box-content',
           'mx-auto',
+          'px-5',
           'md:py-10',
           'md:px-10',
           'rounded-lg',
@@ -212,12 +214,29 @@ const PriceRangeForm: FC = () => {
 
   return (
     <div
-      className={clsx('flex', 'flex-col', 'space-y-1', 'items-center', 'py-2')}
+      className={clsx(
+        'w-full',
+        'flex',
+        'flex-col',
+        'space-y-1',
+        'items-center',
+        'py-2'
+      )}
     >
-      <label className={clsx('text-lg')}>
+      <div
+        className={clsx(
+          'text-lg',
+          'flex',
+          'flex-row',
+          'items-center',
+          'justify-center',
+          'w-full'
+        )}
+      >
         <span>￥</span>
         <input
           className={clsx(
+            'w-full',
             'px-2',
             'border-b',
             'border-b-gray-900',
@@ -232,10 +251,10 @@ const PriceRangeForm: FC = () => {
           {...register('price')}
         />
         <span>JPY</span>
-      </label>
+      </div>
       <label className={clsx('w-full', 'flex', 'items-center', 'py-2')}>
         <input
-          className={clsx('w-full', 'h-[2px]')}
+          className={clsx('w-full', 'h-[2px]', 'bg-white')}
           type="range"
           min="0"
           max="10"
