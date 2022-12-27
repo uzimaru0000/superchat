@@ -60,10 +60,10 @@ function App() {
       className={clsx(
         'flex',
         'flex-col',
+        'shrink-0',
+        'grow',
         'space-y-10',
-        'h-full',
-        'pt-10',
-        'md:pt-0',
+        'py-10',
         'md:items-center',
         'justify-center'
       )}

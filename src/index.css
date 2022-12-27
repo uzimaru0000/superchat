@@ -14,7 +14,7 @@ body {
 }
 
 #root {
-  @apply h-full;
+  @apply flex flex-col h-full;
 }
 
 input {
