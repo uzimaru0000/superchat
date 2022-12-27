@@ -33,7 +33,7 @@ function App() {
 
       if (canShare) {
         await navigator.share({
-          text: 'https://superchat.uzimaru.com',
+          text: 'Created with https://superchat.uzimaru.com',
           files: [
             new File([blob], 'superChat.png', {
               type: 'image/png',
