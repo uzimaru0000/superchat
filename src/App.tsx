@@ -228,7 +228,7 @@ const IconFileInput = () => {
           ？
         </div>
       )}
-      <input hidden type="file" {...register('icon')} />
+      <input hidden type="file" accept="image/*" {...register('icon')} />
     </label>
   );
 };
